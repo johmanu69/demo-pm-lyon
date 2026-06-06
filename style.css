@@ -16,6 +16,8 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
     min-height: 100vh;
     position: relative;
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column; /* Permet de pousser le footer en bas */
 }
 
 .header {
@@ -29,7 +31,7 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
 .header h1 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
 .header p { margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.8; }
 
-.content { padding: 20px; }
+.content { padding: 20px; flex: 1; }
 
 .btn {
     display: block;
@@ -65,3 +67,20 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
 /* Gestion des affichages */
 .screen { display: none; }
 .active { display: block; }
+
+/* Style de l'avertissement de démonstration */
+.footer-demo {
+    background-color: #f8d7da;
+    color: #721c24;
+    text-align: center;
+    padding: 12px 15px;
+    font-size: 11px;
+    line-height: 1.4;
+    border-top: 2px solid #f5c6cb;
+    margin-top: auto; 
+}
+.footer-demo strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
