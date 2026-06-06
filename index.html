@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Îlotier Connecté - Démo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div id="screen-login" class="screen active content" style="margin-top: 50px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: var(--bleu-pm);">Accès Sécurisé</h2>
+            <p>Réseau Police Municipale</p>
+        </div>
+        <div class="form-group">
+            <label>Identifiant</label>
+            <input type="text" id="input-login" class="form-control" placeholder="Ex: MPEREZ">
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" id="input-pwd" class="form-control" placeholder="••••••">
+        </div>
+        <button class="btn btn-submit" onclick="app.login()">S'authentifier</button>
+        <p id="login-error" style="color: red; display: none; text-align: center;">Identifiants incorrects.</p>
+    </div>
+
+    <div id="screen-home" class="screen">
+        <div class="header">
+            <h1>Police Municipale</h1>
+            <p>Ville de Lyon - Îlotier Connecté</p>
+        </div>
+        <div class="content">
+            <button class="btn" onclick="app.showScreen('screen-signalement')">🚨 1. Signalement d'anomalie</button>
+            <button class="btn" onclick="alert('Module OTV en cours de développement')">🏠 2. Opération Tranquillité Vacances</button>
+            <button class="btn" onclick="alert('Module Personnes Vulnérables en cours de développement')">💙 3. Personnes vulnérables (Canicule)</button>
+        </div>
+    </div>
+
+    <div id="screen-signalement" class="screen">
+        <div class="header">
+            <h1>Nouveau Signalement</h1>
+            <p>Transmission au poste</p>
+        </div>
+        <div class="content">
+            <div class="form-group">
+                <label>Type d'incident :</label>
+                <select id="select-categorie" class="form-control">
+                    <option value="">Chargement des catégories...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Localisation précise :</label>
+                <input type="text" id="input-adresse" class="form-control" placeholder="Numéro, Rue, Repère...">
+            </div>
+            <div class="form-group">
+                <label>Observations :</label>
+                <textarea id="input-obs" class="form-control" rows="4"></textarea>
+            </div>
+            <button class="btn btn-submit" onclick="app.submitSignalement()">Transmettre l'alerte</button>
+            <button class="btn" style="text-align: center;" onclick="app.showScreen('screen-home')">Retour</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
