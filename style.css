@@ -1,0 +1,65 @@
+:root {
+    --bleu-pm: #002366;
+    --rouge-lyon: #DA291C;
+    --fond: #f4f7f6;
+    --texte: #333;
+}
+
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body { margin: 0; padding: 0; background-color: #333; display: flex; justify-content: center; }
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--fond);
+    min-height: 100vh;
+    position: relative;
+}
+
+.header {
+    background-color: var(--bleu-pm);
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    border-bottom: 4px solid var(--rouge-lyon);
+}
+
+.header h1 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+.header p { margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.8; }
+
+.content { padding: 20px; }
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    color: var(--bleu-pm);
+    border: 2px solid var(--bleu-pm);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.btn:active { background-color: var(--bleu-pm); color: white; }
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--bleu-pm); }
+.form-control { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
+
+.btn-submit {
+    background-color: var(--rouge-lyon);
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+/* Gestion des affichages */
+.screen { display: none; }
+.active { display: block; }
