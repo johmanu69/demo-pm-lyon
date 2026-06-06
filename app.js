@@ -127,7 +127,7 @@ const app = {
         document.body.removeChild(lienTelechargement);
         URL.revokeObjectURL(url);
         
-        alert("Alerte transmise !\n\nLe rapport a été généré.");
+        alert("Alerte transmise !\n\nLe rapport a été généré et téléchargé sur votre appareil.");
         
         document.getElementById('input-nom').value = '';
         document.getElementById('input-tel').value = '';
