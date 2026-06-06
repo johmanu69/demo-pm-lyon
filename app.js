@@ -1,16 +1,18 @@
 const app = {
-    // Identifiants demandés pour la démo
+    // Identifiants encodés en Base64 pour masquer la lecture directe dans le code source
+    // "TVBFUkVa" = MPEREZ | "MjAyNjA2" = 202606
     credentials: {
-        login: "MPEREZ",
-        pwd: "202606"
+        loginHash: "TVBFUkVa",
+        pwdHash: "MjAyNjA2"
     },
 
-    // 1. Système de connexion
+    // 1. Système de connexion sécurisé pour la démo
     login: function() {
-        const user = document.getElementById('input-login').value;
+        const user = document.getElementById('input-login').value.toUpperCase();
         const pass = document.getElementById('input-pwd').value;
 
-        if (user === this.credentials.login && pass === this.credentials.pwd) {
+        // On encode ce que tape l'utilisateur pour le comparer au hash masqué
+        if (btoa(user) === this.credentials.loginHash && btoa(pass) === this.credentials.pwdHash) {
             this.showScreen('screen-home');
             this.loadCategories(); 
         } else {
@@ -37,33 +39,51 @@ const app = {
             });
         } catch (error) {
             console.error("Erreur de chargement", error);
-            document.getElementById('select-categorie').innerHTML = '<option value="">Erreur chargement JSON</option>';
         }
     },
 
-    // 4. Géolocalisation GPS
+    // 4. Géolocalisation GPS avec conversion en adresse postale (OpenStreetMap)
     getLocation: function() {
         const addressInput = document.getElementById('input-adresse');
         
         if (navigator.geolocation) {
-            addressInput.value = "Recherche GPS en cours...";
+            addressInput.value = "Recherche satellite en cours...";
+            
             navigator.geolocation.getCurrentPosition(
                 function(position) {
-                    const lat = position.coords.latitude.toFixed(5);
-                    const lon = position.coords.longitude.toFixed(5);
-                    addressInput.value = `GPS : ${lat}, ${lon}`;
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    // Appel à l'API gratuite OpenStreetMap pour convertir le GPS en adresse
+                    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+                    
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.display_name) {
+                                // Succès : on insère l'adresse trouvée dans le champ (qui reste modifiable manuellement)
+                                addressInput.value = data.display_name;
+                            } else {
+                                addressInput.value = `GPS : ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Erreur API", err);
+                            addressInput.value = `GPS : ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+                        });
                 },
                 function(error) {
-                    alert("Erreur de géolocalisation. Veuillez vérifier les autorisations de votre navigateur ou saisir l'adresse manuellement.");
+                    alert("Erreur GPS. Vérifiez que la position est activée sur votre téléphone. Vous pouvez saisir l'adresse manuellement.");
                     addressInput.value = "";
-                }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         } else {
             alert("La géolocalisation n'est pas supportée par votre appareil.");
         }
     },
 
-    // 5. Outil de génération d'horodatage (ex: 20260615_143000)
+    // 5. Outil de génération d'horodatage
     getTimestamp: function() {
         const now = new Date();
         const pad = (n) => n.toString().padStart(2, '0');
@@ -83,7 +103,6 @@ const app = {
             return;
         }
 
-        // Formatage du contenu du fichier texte
         const contenuFichier = `=== NOUVEAU SIGNALEMENT ===\r\n` +
                                `Date de saisie : ${new Date().toLocaleString('fr-FR')}\r\n` +
                                `---------------------------\r\n` +
@@ -91,30 +110,25 @@ const app = {
                                `Téléphone : ${tel}\r\n` +
                                `---------------------------\r\n` +
                                `Type d'incident : ${categorie}\r\n` +
-                               `Localisation / GPS : ${adresse}\r\n` +
+                               `Localisation : ${adresse}\r\n` +
                                `Observations : ${obs}\r\n` +
                                `===========================\r\n`;
 
-        // Création du fichier virtuel
         const blob = new Blob([contenuFichier], { type: "text/plain;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const lienTelechargement = document.createElement('a');
         
         lienTelechargement.href = url;
-        // Nom du fichier avec horodatage
         lienTelechargement.download = `Signalement_${this.getTimestamp()}.txt`;
         
-        // Déclenchement du téléchargement
         document.body.appendChild(lienTelechargement);
         lienTelechargement.click();
         
-        // Nettoyage de la mémoire
         document.body.removeChild(lienTelechargement);
         URL.revokeObjectURL(url);
         
-        alert("Alerte transmise !\n\nLe rapport a été généré et téléchargé sur votre appareil sous forme de fichier texte horodaté.");
+        alert("Alerte transmise !\n\nLe rapport a été généré.");
         
-        // Réinitialisation du formulaire
         document.getElementById('input-nom').value = '';
         document.getElementById('input-tel').value = '';
         document.getElementById('input-adresse').value = '';
