@@ -25,7 +25,7 @@
             <input type="password" id="input-pwd" class="form-control" placeholder="••••••">
         </div>
         <button class="btn btn-submit" onclick="app.login()">S'authentifier</button>
-        <p id="login-error" style="color: red; display: none; text-align: center;">Identifiants incorrects.</p>
+        <p id="login-error" style="color: red; display: none; text-align: center; margin-top: 15px;">Identifiants incorrects.</p>
     </div>
 
     <div id="screen-home" class="screen">
@@ -35,8 +35,8 @@
         </div>
         <div class="content">
             <button class="btn" onclick="app.showScreen('screen-signalement')">🚨 1. Signalement d'anomalie</button>
-            <button class="btn" onclick="alert('Module OTV en cours de développement')">🏠 2. Opération Tranquillité Vacances</button>
-            <button class="btn" onclick="alert('Module Personnes Vulnérables en cours de développement')">💙 3. Personnes vulnérables (Canicule)</button>
+            <button class="btn" onclick="alert('Module OTV en cours de développement pour la V2')">🏠 2. Opération Tranquillité Vacances</button>
+            <button class="btn" onclick="alert('Module Personnes Vulnérables en cours de développement')">💙 3. Personnes vulnérables</button>
         </div>
     </div>
 
@@ -46,22 +46,39 @@
             <p>Transmission au poste</p>
         </div>
         <div class="content">
+            
+            <div class="form-group">
+                <label>Identité du requérant :</label>
+                <input type="text" id="input-nom" class="form-control" placeholder="Ex: M. DUPONT Jean">
+            </div>
+            
+            <div class="form-group">
+                <label>Téléphone du requérant :</label>
+                <input type="tel" id="input-tel" class="form-control" placeholder="Ex: 06 12 34 56 78">
+            </div>
+
             <div class="form-group">
                 <label>Type d'incident :</label>
                 <select id="select-categorie" class="form-control">
-                    <option value="">Chargement des catégories...</option>
+                    <option value="">Chargement...</option>
                 </select>
             </div>
+            
             <div class="form-group">
                 <label>Localisation précise :</label>
-                <input type="text" id="input-adresse" class="form-control" placeholder="Numéro, Rue, Repère...">
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="input-adresse" class="form-control" placeholder="Adresse ou coordonnées...">
+                    <button class="btn" style="width: auto; margin-bottom: 0; padding: 12px; border: 1px solid #ccc;" onclick="app.getLocation()" title="Me géolocaliser">📍</button>
+                </div>
             </div>
+            
             <div class="form-group">
                 <label>Observations :</label>
-                <textarea id="input-obs" class="form-control" rows="4"></textarea>
+                <textarea id="input-obs" class="form-control" rows="4" placeholder="Détails supplémentaires..."></textarea>
             </div>
+            
             <button class="btn btn-submit" onclick="app.submitSignalement()">Transmettre l'alerte</button>
-            <button class="btn" style="text-align: center;" onclick="app.showScreen('screen-home')">Retour</button>
+            <button class="btn" style="text-align: center; border: none; box-shadow: none;" onclick="app.showScreen('screen-home')">Annuler et Retour</button>
         </div>
     </div>
 
