@@ -15,6 +15,7 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
     background-color: var(--fond);
     min-height: 100vh;
     position: relative;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .header {
@@ -50,7 +51,7 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
 .btn:active { background-color: var(--bleu-pm); color: white; }
 
 .form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--bleu-pm); }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--bleu-pm); font-size: 14px; }
 .form-control { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
 
 .btn-submit {
@@ -58,6 +59,7 @@ body { margin: 0; padding: 0; background-color: #333; display: flex; justify-con
     color: white;
     border: none;
     text-align: center;
+    margin-top: 10px;
 }
 
 /* Gestion des affichages */
