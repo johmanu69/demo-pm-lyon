@@ -1,0 +1,10 @@
+{
+  "categoriesSignalement": [
+    { "id": "tapage_d", "label": "Tapage diurne" },
+    { "id": "tapage_n", "label": "Tapage nocturne" },
+    { "id": "degradation", "label": "Dégradations / Mobilier urbain" },
+    { "id": "graffiti", "label": "Tags et Graffiti" },
+    { "id": "vol_pickpocket", "label": "Vol / Pickpocket" },
+    { "id": "vol_etalage", "label": "Vol à l'étalage" }
+  ]
+}
